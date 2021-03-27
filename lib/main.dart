@@ -40,6 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
   StreamController _streamController;
   Stream _stream;
   int statusCode = 0;
+  Timer _timer;
 
   void _search() async {
     if (_searchController.text == null || _searchController.text.length == 0) {
@@ -85,6 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextFormField(
                     onChanged: (value) {
                       print("Textfiled value changed");
+                      if (_timer?.isActive ?? false) _timer.cancel();
+                      _timer = Timer(Duration(seconds: 1), () {
+                        _search();
+                      });
                     },
                     textInputAction: TextInputAction.search,
                     onFieldSubmitted: (value) {
