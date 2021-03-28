@@ -43,20 +43,25 @@ class _MyHomePageState extends State<MyHomePage> {
   Timer _timer;
 
   void _search() async {
-    if (_searchController.text == null || _searchController.text.length == 0) {
-      _streamController.add(null);
-      return;
-    } else {
-      _streamController.add("waiting");
-      Response response = await get(
-          Uri.parse(_url + _searchController.text.trim()),
-          headers: {"Authorization": "Token " + token});
-      setState(() {
-        statusCode = response.statusCode;
-      });
-      print(response.statusCode);
-      print(response.body);
-      _streamController.add(json.decode(response.body));
+    try {
+      if (_searchController.text == null ||
+          _searchController.text.length == 0) {
+        _streamController.add(null);
+        return;
+      } else {
+        _streamController.add("waiting");
+        Response response = await get(
+            Uri.parse(_url + _searchController.text.trim()),
+            headers: {"Authorization": "Token " + token});
+        setState(() {
+          statusCode = response.statusCode;
+        });
+        print(response.statusCode);
+        print(response.body);
+        _streamController.add(json.decode(response.body));
+      }
+    } catch (e) {
+      print("Caught error: $e");
     }
   }
 
