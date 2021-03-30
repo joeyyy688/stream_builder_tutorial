@@ -156,6 +156,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               "(" +
                               snapshot.data["definitions"][index]["type"] +
                               ")"),
+                          onTap: () {
+                            print("List Tile pressed");
+                          },
                         ),
                       ),
                       Padding(
