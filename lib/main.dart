@@ -91,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextFormField(
                     onChanged: (value) {
                       print("Textfiled value changed");
+
                       if (_timer?.isActive ?? false) _timer.cancel();
                       _timer = Timer(Duration(seconds: 1), () {
                         _search();
